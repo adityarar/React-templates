@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/event-handling.css"/>
+  </head>
+  <body>
+    <h1>Even Handling</h1><hr>
+    <div id="example">
+    </div>
+    <script type="text/babel">
+      var Sticky = React.createClass({
+        getInitialState: function() {//This is required to initiate states//Otherwise noteContent cannot be used
+          return {editable: false, noteContent: this.props.children}
+        },
+        edit: function(){
+          this.setState({editable:true})
+        },
+        remove: function(){
+          alert("Removing...");
+        },
+        saveNote: function() {
+          var newVal = this.refs.newNoteValue.value;
+          this.setState({editable:false, noteContent:newVal});
+        },
+        renderEditable: function() {
+          return (
+            <div className="sticky">
+              <input type="text" ref="newNoteValue" defaultValue={this.state.noteContent}/>
+              <button className='button-success' onClick={this.saveNote}>Save</button>
+            </div>
+          );
+        },
+        renderNormal: function() {
+          return (
+              <div className="sticky">
+                <h2>{this.state.noteContent}</h2>
+                <button className='button-primary' onClick={this.edit}>Edit</button>
+                <button className='button-danger' onClick={this.remove}>Remove</button>
+              </div>
+          );
+        },
+        render : function(){
+          if(this.state.editable) {
+            return this.renderEditable();
+          }
+          else {
+            return this.renderNormal();
+          }
+        },
+      });
+      ReactDOM.render(
+        <div>
+          <Sticky>Get snacks</Sticky>
+          <Sticky>Start server</Sticky>
+          <Sticky>Meeting at 4</Sticky>
+        </div>
+        , document.getElementById("example"));
+    </script>
+  </body>
+</html>
