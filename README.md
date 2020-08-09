@@ -2,7 +2,7 @@
 
 A repo to store my react templates, while I explore this library.
 
-# Running on windows
+## Running on windows
 Navigate to root folder(which has build as child)
 
 Open cmd
